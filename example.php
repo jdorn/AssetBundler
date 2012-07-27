@@ -2,9 +2,9 @@
 require "AssetBundler.php";
 $bundler = new AssetBundler();
 
-//prep the Bundler with some data
+//Give the AssetBundler some data to learn from
 //the first argument is a list of files
-//the second argument is how many times that list of files was requested
+//the second argument is how many times that list of files was requested together
 $bundler->learn(array(
 	'jquery.js',
 	'base.js',
@@ -33,6 +33,7 @@ $bundler->learn(array(
 
 //generate bundles from this data
 //this will try to choose bundles intelligently based on what files are normally requested together
+//it will also try to minimize the number of asset requests and the number of different bundles
 $bundler->generateBundles();
 echo "Bundles:<pre>".print_r($bundler->getBundles(),true)."</pre>";
 
@@ -40,11 +41,11 @@ echo "Bundles:<pre>".print_r($bundler->getBundles(),true)."</pre>";
 //if you already know the bundles you want to use you can set them directly
 /*
 $bundler->setBundles(array(
-	'bundle1_name'=>array(
+	'bundle1_name.js'=>array(
 		'file1.js',
 		'file2.js',
 	),
-	'bundle2_name'=>array(
+	'bundle2_name.js'=>array(
 		'file3.js',
 		'file4.js',
 	),
